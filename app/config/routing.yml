@@ -1,0 +1,4 @@
+noticia:
+    resource: "@NoticiaBundle/Controller/"
+    type:     annotation
+    prefix:   /
