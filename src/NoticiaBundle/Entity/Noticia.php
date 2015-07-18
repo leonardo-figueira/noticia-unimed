@@ -64,16 +64,16 @@ class Noticia
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="criado", type="datetime")
+     * @ORM\Column(name="dt_cadastro", type="datetime")
      */
-    private $criado;
+    private $dtCadastro;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="atualizado", type="datetime")
+     * @ORM\Column(name="dt_atualizacao", type="datetime")
      */
-    private $atualizado;
+    private $dtAtualizacao;
 
 
     /**
@@ -212,62 +212,62 @@ class Noticia
     }
 
     /**
-     * Set criado
+     * Set dtCadastro
      *
-     * @param \DateTime $criado
+     * @param \DateTime $dtCadastro
      * @return Noticia
      */
-    public function setCriado($criado)
+    public function setDtCadastro($dtCadastro)
     {
-        $this->criado = $criado;
+        $this->dtCadastro = $dtCadastro;
 
         return $this;
     }
 
     /**
-     * Get criado
+     * Get dtCadastro
      *
      * @return \DateTime 
      */
-    public function getCriado()
+    public function getDtCadastro()
     {
-        return $this->criado;
+        return $this->dtCadastro;
     }
 
     /**
-     * Set atualizado
+     * Set dtAtualizacao
      *
-     * @param \DateTime $atualizado
+     * @param \DateTime $dtAtualizacao
      * @return Noticia
      */
-    public function setAtualizado($atualizado)
+    public function setDtAtualizacao($dtAtualizacao)
     {
-        $this->atualizado = $atualizado;
+        $this->dtAtualizacao = $dtAtualizacao;
 
         return $this;
     }
 
     /**
-     * Get atualizado
+     * Get dtAtualizacao
      *
      * @return \DateTime 
      */
-    public function getAtualizado()
+    public function getdtAtualizacao()
     {
-        return $this->atualizado;
+        return $this->dtAtualizacao;
     }
 
     public function __construct()
     {
-        $this->setCriado(new \DateTime());
-        $this->setAtualizado(new \DateTime());
+        $this->setDtCadastro(new \DateTime());
+        $this->setDtAtualizacao(new \DateTime());
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setAtualizadoValue()
+    public function setDtAtualizacaoValue()
     {
-        $this->setAtualizado(new \DateTime());--
+        $this->setDtAtualizacao(new \DateTime());
     }
 }

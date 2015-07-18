@@ -14,7 +14,13 @@ class PageController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('NoticiaBundle:Page:index.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaPorData();
+
+        return $this->render('NoticiaBundle:Page:index.html.twig', array(
+            'noticias' => $noticias
+        ));
     }
 
     /**

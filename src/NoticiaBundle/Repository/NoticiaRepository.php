@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class NoticiaRepository extends EntityRepository
 {
+
+    public function buscaNoticiaPorData($limit = null)
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->select('b')
+            ->addOrderBy('b.dtCadastro', 'DESC');
+
+        if (false === is_null($limit))
+            $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

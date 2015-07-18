@@ -1,5 +1,26 @@
 {% extends 'NoticiaBundle:Page:layout.html.twig' %}
 
 {% block body %}
-    Blog homepage
+    {% for noticia in noticias %}
+        <article class="noticia">
+            <div class="date"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
+            <header>
+                <h2><a href="{{ path('_noticia', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a></h2>
+            </header>
+
+            <img src="{{ asset(['images/', noticia.imagem]|join) }}" />
+            <div class="snippet">
+                <p>{{ noticia.noticia(500) }}</p>
+                <p class="continue"><a href="{{ path('_noticia', { 'id': noticia.id }) }}">Continue lendo...</a></p>
+            </div>
+
+            <footer class="meta">
+                <p>Comentarios: -</p>
+                <p>Noticia de <span class="highlight">{{noticia.autor}}</span> as {{ noticia.dtCadastro|date('h:iA') }}</p>
+                <p>Tags: <span class="highlight">{{ noticia.tags }}</span></p>
+            </footer>
+        </article>
+    {% else %}
+        <p>Sem not&iacute;cias</p>
+    {% endfor %}
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block body %}
     <article class="noticia">
         <header>
-            <div class="data"><time datetime="{{ noticia.criado|date('c') }}">{{ noticia.criado|date('l, F j, Y') }}</time></div>
+            <div class="data"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
             <h2>{{ noticia.titulo }}</h2>
         </header>
         <img src="{{ asset(['images/', noticia.imagem]|join) }}" alt="{{ noticia.titulo }} imagem nao encontrada" class="large" />
