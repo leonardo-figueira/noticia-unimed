@@ -1,0 +1,16 @@
+{% extends 'NoticiaBundle:Page:layout.html.twig' %}
+
+{% block title %}{{ noticia.titulo }}{% endblock %}
+
+{% block body %}
+    <article class="noticia">
+        <header>
+            <div class="data"><time datetime="{{ noticia.criado|date('c') }}">{{ noticia.criado|date('l, F j, Y') }}</time></div>
+            <h2>{{ noticia.titulo }}</h2>
+        </header>
+        <img src="{{ asset(['images/', noticia.imagem]|join) }}" alt="{{ noticia.titulo }} imagem nao encontrada" class="large" />
+        <div>
+            <p>{{ noticia.noticia }}</p>
+        </div>
+    </article>
+{% endblock %}

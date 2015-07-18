@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PageController extends Controller
 {
     /**
-     * @Route("/" , name="inicio")
+     * @Route("/" , name="_inicio")
      * @Template()
      */
     public function indexAction()
@@ -18,7 +18,7 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/sobre" , name="sobre")
+     * @Route("/sobre" , name="_sobre")
      * @Template()
      */
     public function aboutAction()
