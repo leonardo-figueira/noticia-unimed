@@ -268,6 +268,6 @@ class Noticia
      */
     public function setAtualizadoValue()
     {
-        $this->setAtualizado(new \DateTime());
+        $this->setAtualizado(new \DateTime());--
     }
 }
