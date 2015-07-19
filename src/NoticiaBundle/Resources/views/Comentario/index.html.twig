@@ -1,0 +1,12 @@
+{% for comentario in comentarios %}
+    <article class="comentario {{ cycle(['odd', 'even'], loop.index0) }}" id="comentario-{{ comentario.id }}">
+        <header>
+            <p><span class="highlight">{{ comentario.usuario }}</span>:</p>
+        </header>
+        <p>{{ comentario.descricao }}</p>
+        </br>
+        <time datetime="{{ comentario.dtCadastro|date('c') }}">{{ comentario.dtCadastro|date('l, F j, Y') }}</time>
+    </article>
+{% else %}
+    <p>Nenhum coment&aacute;rio...</p>
+{% endfor %}

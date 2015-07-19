@@ -13,4 +13,10 @@
             <p>{{ noticia.noticia }}</p>
         </div>
     </article>
+    <section class="comentarios" id="comentarios">
+        <section class="comentarios-anteriores">
+            <h3>Coment&aacute;rios</h3>
+            {% include 'NoticiaBundle:Comentario:index.html.twig' with { 'comentarios': comentarios } %}
+        </section>
+    </section>
 {% endblock %}

@@ -16,3 +16,9 @@ form.noticia ul li { color: #ff0000; margin-bottom: 5px; }
 .noticia .meta { font-style: italic; font-size: 12px; color: #666; }
 .noticia .meta p { margin-bottom: 5px; line-height: 1.2em; }
 .noticia img.large { width: 300px; min-height: 165px; }
+.comentarios { clear: both; }
+.comentarios .odd { background: #eee; }
+.comentarios .comentario { padding: 20px; }
+.comentarios .comentario p { margin-bottom: 0; }
+.comentarios h3 { background: #eee; padding: 10px; font-size: 20px; margin-bottom: 20px; clear: both; }
+.comentarios .comentarios-anteriores { margin-bottom: 20px; }

@@ -1,11 +1,12 @@
 <?php
 namespace NoticiaBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use NoticiaBundle\Entity\Noticia;
 
-class NoticiaFixtures implements FixtureInterface
+class NoticiaFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -15,8 +16,8 @@ class NoticiaFixtures implements FixtureInterface
         $noticia1->setImagem('beach.jpg');
         $noticia1->setAutor('dsyph3r');
         $noticia1->setTags('symfony2, php, paradise, symBlog');
-        $noticia1->setCriado(new \DateTime());
-        $noticia1->setAtualizado($noticia1->getCriado());
+        $noticia1->setDtCadastro(new \DateTime());
+        $noticia1->setDtAtualizacao($noticia1->getDtCadastro());
         $manager->persist($noticia1);
 
         $noticia2 = new noticia();
@@ -25,8 +26,8 @@ class NoticiaFixtures implements FixtureInterface
         $noticia2->setImagem('pool_leak.jpg');
         $noticia2->setAutor('Zero Cool');
         $noticia2->setTags('pool, leaky, hacked, movie, hacking, symBlog');
-        $noticia2->setCriado(new \DateTime("2011-07-23 06:12:33"));
-        $noticia2->setAtualizado($noticia2->getCriado());
+        $noticia2->setDtCadastro(new \DateTime("2011-07-23 06:12:33"));
+        $noticia2->setDtAtualizacao($noticia2->getDtCadastro());
         $manager->persist($noticia2);
 
         $noticia3 = new noticia();
@@ -35,8 +36,8 @@ class NoticiaFixtures implements FixtureInterface
         $noticia3->setImagem('misdirection.jpg');
         $noticia3->setAutor('Gabriel');
         $noticia3->setTags('misdirection, magic, movie, hacking, symBlog');
-        $noticia3->setCriado(new \DateTime("2011-07-16 16:14:06"));
-        $noticia3->setAtualizado($noticia3->getCriado());
+        $noticia3->setDtCadastro(new \DateTime("2011-07-16 16:14:06"));
+        $noticia3->setDtAtualizacao($noticia3->getDtCadastro());
         $manager->persist($noticia3);
 
         $noticia4 = new noticia();
@@ -45,8 +46,8 @@ class NoticiaFixtures implements FixtureInterface
         $noticia4->setImagem('the_grid.jpg');
         $noticia4->setAutor('Kevin Flynn');
         $noticia4->setTags('grid, daftpunk, movie, symBlog');
-        $noticia4->setCriado(new \DateTime("2011-06-02 18:54:12"));
-        $noticia4->setAtualizado($noticia4->getCriado());
+        $noticia4->setDtCadastro(new \DateTime("2011-06-02 18:54:12"));
+        $noticia4->setDtAtualizacao($noticia4->getDtCadastro());
         $manager->persist($noticia4);
 
         $noticia5 = new noticia();
@@ -55,11 +56,22 @@ class NoticiaFixtures implements FixtureInterface
         $noticia5->setImagem('one_or_zero.jpg');
         $noticia5->setAutor('Gary Winston');
         $noticia5->setTags('binary, one, zero, alive, dead, !trusting, movie, symBlog');
-        $noticia5->setCriado(new \DateTime("2011-04-25 15:34:18"));
-        $noticia5->setAtualizado($noticia5->getCriado());
+        $noticia5->setDtCadastro(new \DateTime("2011-04-25 15:34:18"));
+        $noticia5->setDtAtualizacao($noticia5->getDtCadastro());
         $manager->persist($noticia5);
 
         $manager->flush();
+
+        $this->addReference('noticia-1', $noticia1);
+        $this->addReference('noticia-2', $noticia2);
+        $this->addReference('noticia-3', $noticia3);
+        $this->addReference('noticia-4', $noticia4);
+        $this->addReference('noticia-5', $noticia5);
     }
+
+    public function getOrder()
+    {
+        return 1;
+    }    
 
 }

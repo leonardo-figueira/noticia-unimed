@@ -22,8 +22,11 @@ class NoticiaController extends Controller
             throw $this->createNotFoundException('Nao foi possivel localizar noticia.');
         }
 
+        $comentarios = $em->getRepository('NoticiaBundle:Comentario')->buscarComentariosPorNoticia($noticia->getId());
+
         return $this->render('NoticiaBundle:Noticia:show.html.twig', array(
             'noticia'      => $noticia,
+            'comentarios'  => $comentarios
         ));
     }
 }
