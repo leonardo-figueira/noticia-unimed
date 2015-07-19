@@ -1,8 +1,8 @@
 {% extends 'NoticiaBundle:Page:layout.html.twig' %}
 
 {% block title %}{{ noticia.titulo }}{% endblock %}
-
 {% block body %}
+
     <article class="noticia">
         <header>
             <div class="data"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
@@ -18,5 +18,15 @@
             <h3>Coment&aacute;rios</h3>
             {% include 'NoticiaBundle:Comentario:index.html.twig' with { 'comentarios': comentarios } %}
         </section>
+        <h3>Adicionar Coment&aacute;rio</h3>
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {{ render(controller( 'NoticiaBundle:Comentario:new', { 'noticia_id': noticia.id } )) }}
     </section>
 {% endblock %}
+

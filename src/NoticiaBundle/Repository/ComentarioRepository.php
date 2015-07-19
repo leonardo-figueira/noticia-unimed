@@ -3,6 +3,7 @@
 namespace NoticiaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use NoticiaBundle\Entity\Comentario;
 
 /**
  * ComentarioRepository
@@ -24,4 +25,11 @@ class ComentarioRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function adicionar(Comentario $comentario) {
+
+        $this->_em->persist($comentario);
+        $this->_em->flush();
+        return true;
+
+    }
 }

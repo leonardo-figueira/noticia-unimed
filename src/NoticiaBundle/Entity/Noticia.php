@@ -285,4 +285,9 @@ class Noticia
         $this->comentarios->removeElement($comentarios);
     }
 
+    public function __toString()
+    {
+        return $this->getTitulo();
+    }
+
 }

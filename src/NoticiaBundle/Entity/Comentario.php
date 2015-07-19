@@ -3,6 +3,7 @@
 namespace NoticiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Mapping\ClassMetadata;
 
 /**
  * Comentario
@@ -195,4 +196,5 @@ class Comentario
     {
         return $this->dtAtualizacao;
     }
+
 }

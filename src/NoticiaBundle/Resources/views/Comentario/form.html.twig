@@ -1,0 +1,6 @@
+<form action="{{ path('_comentario', { 'noticia_id' : comentario.noticia.id } ) }}" method="post" {{ form_enctype(form) }} class="noticia">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Enviar">
+    </p>
+</form>
