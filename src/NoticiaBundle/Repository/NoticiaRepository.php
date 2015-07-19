@@ -3,6 +3,7 @@
 namespace NoticiaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Proxies\__CG__\NoticiaBundle\Entity\Noticia;
 
 /**
  * NoticiaRepository
@@ -23,6 +24,14 @@ class NoticiaRepository extends EntityRepository
             $qb->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function adicionar(Noticia $noticia) {
+
+        $this->_em->persist($noticia);
+        $this->_em->flush();
+        return true;
+
     }
 
 }

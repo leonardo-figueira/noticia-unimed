@@ -2,6 +2,8 @@
 
 namespace NoticiaBundle\Controller;
 
+use NoticiaBundle\Entity\Noticia;
+use NoticiaBundle\Form\NoticiaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,4 +31,33 @@ class NoticiaController extends Controller
             'comentarios'  => $comentarios
         ));
     }
+
+    /**
+     * @Route("/cadastrar_noticia", name="_cadastrar_noticia")
+     * @Template()
+     */
+    public function cadastrarAction() {
+        $noticia = new Noticia();
+        $request = $this->getRequest();
+        $form = $this->createForm(new NoticiaType(), $noticia);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try {
+                $noticia = $form->getData();
+
+                $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
+                $noticiaRepository->adicionar($noticia);
+
+                $this->addFlash('success', 'Noticia cadastrada com sucesso');
+
+                return $this->redirectToRoute('_imagem_raias_index');
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+            }
+        }
+
+        return array("form" => $form->createView());
+    }
+
 }
