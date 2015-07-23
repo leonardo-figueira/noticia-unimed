@@ -2,12 +2,11 @@
 
 namespace NoticiaBundle\Controller;
 
-use NoticiaBundle\Entity\Noticia;
-use NoticiaBundle\Form\NoticiaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
+use NoticiaBundle\Entity\Noticia;
+use NoticiaBundle\Form\NoticiaType;
 class NoticiaController extends Controller
 {
     /**
@@ -49,9 +48,12 @@ class NoticiaController extends Controller
                 $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
                 $noticiaRepository->adicionar($noticia);
 
+                $historicoRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Historico');
+                $noticiaAdd = $noticiaRepository->
+
                 $this->addFlash('success', 'Noticia cadastrada com sucesso');
 
-                return $this->redirectToRoute('_imagem_raias_index');
+                return $this->redirectToRoute('_area_restrita');
             } catch (Exception $ex) {
                 echo $ex->getMessage();
             }
@@ -60,4 +62,56 @@ class NoticiaController extends Controller
         return array("form" => $form->createView());
     }
 
+    /**
+     * @Route("/excluir_noticia/{noticia}", name="_excluir_noticia")
+     * @Template()
+     */
+    public function excluirAction(Noticia $noticia) {
+
+        $request = $this->getRequest();
+
+        if ($request->isMethod('POST')) {
+            try {
+
+                $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
+                $noticiaRepository->excluir($noticia);
+
+                $this->addFlash('success', 'Raia ' . $noticia->getTitulo() . ' excluída com sucesso');
+
+                return $this->redirectToRoute('_area_restrita');
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+            }
+        }
+
+        return array('noticia' => $noticia);
+    }
+
+    /**
+     * @Route("/alterar_noticia/{noticia}", name="_alterar_noticia")
+     * @Template()
+     */
+    public function alterarAction(Noticia $noticia) {
+
+        $form = $this->createForm(new NoticiaType(), $noticia);
+        $request = $this->getRequest();
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try {
+                $noticia = $form->getData();
+
+                $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
+                $noticiaRepository->alterar($noticia);
+
+                $this->addFlash('success', 'Noticia ' . $noticia->getId() . ' alterada com sucesso');
+
+                return $this->redirectToRoute('_area_restrita');
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+            }
+        }
+
+        return array("form" => $form->createView());
+    }
 }

@@ -33,13 +33,6 @@ class Noticia
     /**
      * @var string
      *
-     * @ORM\Column(name="autor", type="string", length=255)
-     */
-    private $autor;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="noticia", type="string", length=255)
      */
     private $noticia;
@@ -51,12 +44,12 @@ class Noticia
      */
     private $imagem;
 
+
     /**
-     * @var string
-     *
-     * @ORM\Column(name="tags", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="noticias")
+     * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
      */
-    private $tags;
+    private $categoria;
 
 
     /**
@@ -66,7 +59,7 @@ class Noticia
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        $this->comentarios = new ArrayCollection();
 
         $this->setDtCadastro(new \DateTime());
         $this->setDtAtualizacao(new \DateTime());
@@ -189,31 +182,33 @@ class Noticia
     }
 
     /**
-     * Set tags
+     * Set categoria
      *
-     * @param string $tags
+     * @param string $categoria
      * @return Noticia
      */
-    public function setTags($tags)
+    public function setCategoria($categoria)
     {
-        $this->tags = $tags;
+        $this->categoria = $categoria;
 
         return $this;
     }
 
     /**
-     * Get tags
+     * Get categoria
      *
      * @return string 
      */
-    public function getTags()
+    public function getCategoria()
     {
-        return $this->tags;
+        return $this->categoria;
     }
 
     public function addComentario(Comentario $comentario)
     {
         $this->comentarios[] = $comentario;
+
+        return $this;
     }
 
     public function getComentarios()
@@ -284,10 +279,4 @@ class Noticia
     {
         $this->comentarios->removeElement($comentarios);
     }
-
-    public function __toString()
-    {
-        return $this->getTitulo();
-    }
-
 }

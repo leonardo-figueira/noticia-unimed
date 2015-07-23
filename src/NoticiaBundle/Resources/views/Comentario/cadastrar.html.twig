@@ -3,7 +3,7 @@
 {% block title %}Adicionar Comentario{% endblock%}
 
 {% block body %}
-
     <h1>Addicionar "{{ comentario.noticia.titulo }}"</h1>
+
     {% include 'NoticiaBundle:Comentario:form.html.twig' with { 'form': form } %}
 {% endblock %}

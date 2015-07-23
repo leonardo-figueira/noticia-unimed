@@ -15,14 +15,22 @@ class NoticiaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titulo')
-            ->add('autor')
-            ->add('noticia')
-            ->add('imagem')
-            ->add('tags')
-            ->add('dtCadastro')
-            ->add('dtAtualizacao')
-        ;
+            ->add('titulo',null, array('attr' => array('class' => 'form-control'),
+                'label_attr' => array('class' => 'control-label col-lg-2')
+            ))
+            ->add('imagem',null, array('attr' => array('class' => 'form-control'),
+                'label_attr' => array('class' => 'control-label col-lg-2')
+            ))
+            ->add('noticia','textarea', array('attr' => array('class' => 'form-control', 'rows' => 15),
+                'label_attr' => array('class' => 'control-label col-lg-2')
+            ))
+            ->add('categoria', 'entity', array('attr' => array('class' => 'form-control'),
+                'label_attr' => array('class' => 'control-label col-lg-2'),
+                'class' => 'NoticiaBundle:Categoria',
+                'property' => 'nome',
+                'placeholder' => 'Escolha...',
+            ))
+            ->add('salvar', 'submit', array('attr' => array('class' => 'btn btn-primary pull-right')));
     }
     
     /**

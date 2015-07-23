@@ -1,0 +1,10 @@
+{% extends 'NoticiaBundle:Page:layout.html.twig' %}
+
+{% block title %}Cadastrar Categoria{% endblock%}
+
+{%  block body %}
+    <h3>Categoria \ Cadastrar</h3>
+
+    {% include 'NoticiaBundle:Categoria:form.html.twig' with { 'form': form } %}
+{% endblock %}
+

@@ -1,0 +1,11 @@
+{% extends 'NoticiaBundle:Page:layout.html.twig' %}
+
+{% block title %}Excluir Categoria{% endblock%}
+
+{%  block body %}
+    <h3>Categoria \ Excluir \ {{ categoria.nome }}</h3>
+    <p> Tem certeza que deseja excluir a categoria <strong>{{ categoria.nome }}</strong>?</p>
+    <form method="post" action="">
+        <a href="{{ path('_area_restrita') }}">Voltar</a> <input type="submit" class="btn btn-primary" value="Sim">
+    </form>
+{% endblock %}

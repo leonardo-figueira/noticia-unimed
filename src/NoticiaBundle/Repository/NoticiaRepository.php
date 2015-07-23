@@ -3,7 +3,7 @@
 namespace NoticiaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Proxies\__CG__\NoticiaBundle\Entity\Noticia;
+use \NoticiaBundle\Entity\Noticia;
 
 /**
  * NoticiaRepository
@@ -31,7 +31,17 @@ class NoticiaRepository extends EntityRepository
         $this->_em->persist($noticia);
         $this->_em->flush();
         return true;
-
     }
 
+    public function excluir(Noticia $noticia) {
+        $this->_em->remove($noticia);
+        $this->_em->flush();
+        return true;
+    }
+
+    public function alterar(Noticia $noticia) {
+        $this->_em->merge($noticia);
+        $this->_em->flush();
+        return true;
+    }
 }

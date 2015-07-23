@@ -24,6 +24,22 @@ class PageController extends Controller
     }
 
     /**
+     * @Route("/area_restrita", name="_area_restrita")
+     * @Template()
+     */
+    public function areaRestritaAction(){
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaPorData();
+
+        return $this->render('NoticiaBundle:Page:areaRestrita.html.twig', array(
+            'noticias' => $noticias
+        ));
+
+    }
+
+    /**
      * @Route("/sobre" , name="_sobre")
      * @Template()
      */

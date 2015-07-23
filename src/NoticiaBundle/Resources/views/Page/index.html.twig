@@ -3,7 +3,7 @@
 {% block body %}
     {% for noticia in noticias %}
         <article class="noticia">
-            <div class="date"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
+            <div class="data"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
             <header>
                 <h2><a href="{{ path('_noticia', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a></h2>
             </header>
@@ -16,8 +16,8 @@
 
             <footer class="meta">
                 <p>Comentarios: -</p>
-                <p>Noticia de <span class="highlight">{{noticia.autor}}</span> as {{ noticia.dtCadastro|date('h:iA') }}</p>
-                <p>Tags: <span class="highlight">{{ noticia.tags }}</span></p>
+                <p>Criado em {{ noticia.dtCadastro|date('h:iA') }}</p>
+                <p>Categoria: <span class="highlight">{{ noticia.categoria }}</span></p>
             </footer>
         </article>
     {% else %}

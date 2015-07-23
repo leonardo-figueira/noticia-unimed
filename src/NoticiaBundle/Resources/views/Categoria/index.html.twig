@@ -1,0 +1,48 @@
+{% extends 'NoticiaBundle:Page:layout.html.twig' %}
+
+{% block body %}
+
+        <link href="{{ asset('bundles/noticia/css/noticia.css') }}" type="text/css" rel="stylesheet" />
+        <div align="center">
+                <a class="btn" style=";color:#fff;" href="{{ path('_categoria_cadastrar') }}">
+                    Cadastrar Nova Categoria
+                </a>
+        </div>
+        </br></br></br>
+
+    {% for categoria in categorias %}
+        <article class="noticia">
+            <header>
+                <h3>Cod:{{ categoria.id }}</h3>
+                <div class="data">Nome: {{ categoria.nome }}</div>
+            </header>
+            <div class="snippet">
+                <p class="continue">
+                    <a class="btn" style=";color:#fff;" href="{{ path("_categoria_excluir", { 'categoria' : categoria.id }) }}">
+                        Excluir
+                    </a>
+                    &nbsp;&nbsp;
+                    <a class="btn" style=";color:#fff;" href="{{ path("_categoria_alterar", { 'categoria' : categoria.id }) }}">
+                        Alterar
+                    </a>
+                </p>
+            </div>
+            <footer class="meta">
+                <p>
+                    Vers&atilde;o:
+                    <span class="highlight">
+                        {% if categoria.versao == 0  %}
+                            Ambos
+                        {% elseif categoria.versao == 1 %}
+                            Web
+                        {% elseif categoria.versao == 2 %}
+                            Mobile
+                        {% endif %}
+                    </span>
+                </p>
+            </footer>
+        </article>
+    {% else %}
+        <p>Sem not&iacute;cias</p>
+    {% endfor %}
+{% endblock %}
