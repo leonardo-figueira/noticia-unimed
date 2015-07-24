@@ -3,6 +3,7 @@
 namespace NoticiaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * UserRepository
@@ -12,4 +13,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+
 }

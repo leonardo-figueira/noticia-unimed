@@ -4,6 +4,7 @@ namespace NoticiaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Serializable;
 
 /**
  * User
@@ -154,5 +155,18 @@ class User implements UserInterface
     public function eraseCredentials()
     {
 
+    }
+
+    public function serialaize()
+    {
+        return serialize(array(
+            'id' => $this->getId()
+    ));
+    }
+
+    public function unserialaize($serialized)
+    {
+        $data = unserialize($serialized);
+        $this->id = $data['id'];
     }
 }

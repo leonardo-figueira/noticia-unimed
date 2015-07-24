@@ -2,6 +2,7 @@
 
 namespace NoticiaBundle\Controller;
 
+use NoticiaBundle\Utility\DetectMobileDevice;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -15,6 +16,15 @@ class PageController extends Controller
      */
     public function indexAction()
     {
+        $detectMobile = new DetectMobileDevice($_SERVER['HTTP_USER_AGENT']);
+        $mobile = $detectMobile->isMobile();
+        if ($mobile == 1){
+            echo "MOBILE";
+        }else{
+            echo "DESKTOP";
+        }
+        exit;
+
         $em = $this->getDoctrine()->getEntityManager();
 
         $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaPorData();
@@ -32,7 +42,7 @@ class PageController extends Controller
 
         $securityContext = $this->get('security.context');
         if(!$securityContext->isGranted('ROLE_USER')){
-            throw new AccessDeniedException("Por favor acesse na area restrita com um usuario e login validos!");
+            throw new AccessDeniedException("Realize o login para poder acessar");
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -53,4 +63,5 @@ class PageController extends Controller
     {
         return $this->render('NoticiaBundle:Page:sobre.html.twig');
     }
+
 }
