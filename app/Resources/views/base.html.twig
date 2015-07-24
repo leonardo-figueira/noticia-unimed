@@ -24,6 +24,9 @@
                         <li><a href="{{ path('_inicio') }}">Home</a></li>
                         <li><a href="{{ path('_sobre') }}">Sobre</a></li>
                         <li><a href="{{ path('_area_restrita') }}">Area Restrita</a></li>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li><a href="{{ path('logout') }}">Logout</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             {% endblock %}

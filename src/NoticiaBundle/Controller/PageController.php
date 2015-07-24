@@ -5,6 +5,7 @@ namespace NoticiaBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PageController extends Controller
 {
@@ -28,6 +29,11 @@ class PageController extends Controller
      * @Template()
      */
     public function areaRestritaAction(){
+
+        $securityContext = $this->get('security.context');
+        if(!$securityContext->isGranted('ROLE_USER')){
+            throw new AccessDeniedException("Por favor acesse na area restrita com um usuario e login validos!");
+        }
 
         $em = $this->getDoctrine()->getEntityManager();
 
