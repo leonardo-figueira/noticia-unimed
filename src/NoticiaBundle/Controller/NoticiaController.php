@@ -7,10 +7,30 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use NoticiaBundle\Entity\Noticia;
 use NoticiaBundle\Form\NoticiaType;
+/**
+ * @Route("/noticia")
+ */
 class NoticiaController extends Controller
 {
+
     /**
-     * @Route("/noticia/{id}" , name="_noticia")
+     * @Route("/", name="_noticia_index")
+     * @Template()
+     */
+    public function indexAction(){
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaPorData();
+
+        return $this->render('NoticiaBundle:Noticia:index.html.twig', array(
+            'noticias' => $noticias
+        ));
+
+    }
+
+    /**
+     * @Route("/show/{id}" , name="_noticia_show")
      * @Template()
      */
     public function showAction($id)
@@ -32,7 +52,7 @@ class NoticiaController extends Controller
     }
 
     /**
-     * @Route("/cadastrar_noticia", name="_cadastrar_noticia")
+     * @Route("/cadastrar", name="_noticia_cadastrar")
      * @Template()
      */
     public function cadastrarAction() {
@@ -48,9 +68,6 @@ class NoticiaController extends Controller
                 $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
                 $noticiaRepository->adicionar($noticia);
 
-                $historicoRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Historico');
-                $noticiaAdd = $noticiaRepository->
-
                 $this->addFlash('success', 'Noticia cadastrada com sucesso');
 
                 return $this->redirectToRoute('_area_restrita');
@@ -63,7 +80,7 @@ class NoticiaController extends Controller
     }
 
     /**
-     * @Route("/excluir_noticia/{noticia}", name="_excluir_noticia")
+     * @Route("/excluir/{noticia}", name="_excluir_noticia")
      * @Template()
      */
     public function excluirAction(Noticia $noticia) {
@@ -88,7 +105,7 @@ class NoticiaController extends Controller
     }
 
     /**
-     * @Route("/alterar_noticia/{noticia}", name="_alterar_noticia")
+     * @Route("/alterar/{noticia}", name="_alterar_noticia")
      * @Template()
      */
     public function alterarAction(Noticia $noticia) {

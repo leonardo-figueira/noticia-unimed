@@ -1,48 +1,62 @@
 {% extends 'NoticiaBundle:Page:layout.html.twig' %}
 
 {% block body %}
-
-        <link href="{{ asset('bundles/noticia/css/noticia.css') }}" type="text/css" rel="stylesheet" />
-        <div align="center">
-                <a class="btn" style=";color:#fff;" href="{{ path('_categoria_cadastrar') }}">
-                    Cadastrar Nova Categoria
-                </a>
+    <h3>Categorias
+        <a class="btn btn-primary pull-right" href="{{ path('_categoria_cadastrar') }}">Nova</a>
+    </h3>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
         </div>
-        </br></br></br>
-
-    {% for categoria in categorias %}
-        <article class="noticia">
-            <header>
-                <h3>Cod:{{ categoria.id }}</h3>
-                <div class="data">Nome: {{ categoria.nome }}</div>
-            </header>
-            <div class="snippet">
-                <p class="continue">
-                    <a class="btn" style=";color:#fff;" href="{{ path("_categoria_excluir", { 'categoria' : categoria.id }) }}">
-                        Excluir
-                    </a>
-                    &nbsp;&nbsp;
-                    <a class="btn" style=";color:#fff;" href="{{ path("_categoria_alterar", { 'categoria' : categoria.id }) }}">
-                        Alterar
-                    </a>
-                </p>
-            </div>
-            <footer class="meta">
-                <p>
-                    Vers&atilde;o:
-                    <span class="highlight">
-                        {% if categoria.versao == 0  %}
-                            Ambos
-                        {% elseif categoria.versao == 1 %}
-                            Web
-                        {% elseif categoria.versao == 2 %}
-                            Mobile
-                        {% endif %}
-                    </span>
-                </p>
-            </footer>
-        </article>
-    {% else %}
-        <p>Sem not&iacute;cias</p>
     {% endfor %}
+    <div class="panel-body">
+        <!-- START table-responsive-->
+        <div class="table-responsive table-bordered">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th width="80">#</th>
+                    <th>Nome</th>
+                    <th width="200">Vers&atilde;o</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for categoria in categorias %}
+                    <tr>
+                        <td>{{ categoria.id }}</td>
+                        <td>{{ categoria.nome }}</td>
+                        <td>
+                            {% if categoria.versao == 0  %}
+                                Ambos
+                            {% elseif categoria.versao == 1 %}
+                                Web
+                            {% elseif categoria.versao == 2 %}
+                                Mobile
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path("_categoria_alterar", { 'categoria' : categoria.id }) }}" class="btn btn-sm btn-default">Editar</a>
+                            <a href="{{ path("_categoria_excluir", { 'categoria' : categoria.id }) }}" class="btn btn-sm btn-warning">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block sidebar %}
+    <div class="well" style="margin-right: -140px;">
+        <h4>Menu</h4>
+        <div class="row">
+            <div class="col-lg-6">
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('_noticia_index') }}">Not&iacute;cias</a>
+                    </li>
+                    <li><a href="{{ path('_categoria_index') }}">Categoria</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -10,7 +10,8 @@ use NoticiaBundle\Form\CategoriaType;
 
 /**
  * @Route("/categoria")
- */class CategoriaController extends Controller
+ */
+class CategoriaController extends Controller
 {
 
 

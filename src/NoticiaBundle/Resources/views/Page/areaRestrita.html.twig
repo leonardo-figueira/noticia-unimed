@@ -1,37 +1,19 @@
 {% extends 'NoticiaBundle:Page:layout.html.twig' %}
 
 {% block body %}
-
-        <link href="{{ asset('bundles/noticia/css/noticia.css') }}" type="text/css" rel="stylesheet" />
-        <div align="center">
-                <a class="btn btn-success" style="color:#fff;" href="{{ path('_cadastrar_noticia') }}">
-                    Cadastrar Nova Not&iacute;cia
-                </a>
-        </div>
-        </br></br></br>
-
-    {% for noticia in noticias %}
-        <article class="noticia">
-            <header>
-                <h2>Cod:{{ noticia.id }}</h2>
-                <div class="data">Data de Cadastro: <time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('d/m/Y') }}</time></div>
-            </header>
-            <div class="snippet">
-                <p class="continue">
-                    <a class="btn btn-default" href="{{ path("_alterar_noticia", { 'noticia' : noticia.id }) }}">
-                        Alterar
-                    </a>
-                    &nbsp;&nbsp;
-                    <a class="btn btn-danger"; style="color:#fff;" href="{{ path("_excluir_noticia", { 'noticia' : noticia.id }) }}">
-                        Excluir
-                    </a>
-                </p>
+{% endblock %}
+{% block sidebar %}
+    <div class="well" style="margin-right: -140px;">
+        <h4>Menu</h4>
+        <div class="row">
+            <div class="col-lg-6">
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('_noticia_index') }}">Not&iacute;cias</a>
+                    </li>
+                    <li><a href="{{ path('_categoria_index') }}">Categoria</a>
+                    </li>
+                </ul>
             </div>
-            <footer class="meta">
-                <p>Categoria: <span class="highlight">{{ noticia.categoria }}</span></p>
-            </footer>
-        </article>
-    {% else %}
-        <p>Sem not&iacute;cias</p>
-    {% endfor %}
+        </div>
+    </div>
 {% endblock %}

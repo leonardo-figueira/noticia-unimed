@@ -1,3 +1,42 @@
-{{ form_start(form,{'attr': { 'class' : 'noticia' , 'role' : 'form' } }) }}
-{{ form_end(form) }}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <!-- START table-responsive-->
+
+        {{ form_start(form,{'attr': { 'class' : 'form-horizontal' , 'role' : 'form' } }) }}
+
+        {% if not form.vars.valid %}
+            <div class="alert alert-danger" role="alert">
+                <button class="close" aria-label="Close" data-dismiss="alert" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <p>Verifique os erros abaixo:</p>
+                {{ form_errors(form.nome) }}
+                {{ form_errors(form.versao) }}
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            {{ form_label(form.nome,'Nome') }}
+            <div class="col-lg-10">
+                {{ form_widget(form.nome) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.versao,'Versao') }}
+            <div class="col-lg-10">
+                {{ form_widget(form.versao) }}
+            </div>
+        </div>
+
+        {{ form_widget(form.salvar, { 'label': 'Salvar Noticia' }) }}
+
+        {{ form_end(form) }}
+    </div>
+</div>
+</div>
+
+
+
+
 

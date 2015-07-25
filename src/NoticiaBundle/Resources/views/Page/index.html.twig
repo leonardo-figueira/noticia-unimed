@@ -3,20 +3,15 @@
 {% block body %}
     {% for noticia in noticias %}
         <article class="noticia">
-            <div class="data"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
-            <header>
-                <h2><a href="{{ path('_noticia', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a></h2>
-            </header>
-
             <img src="{{ asset(['images/', noticia.imagem]|join) }}" />
             <div class="snippet">
-                <p>{{ noticia.noticia(500) }}</p>
-                <p class="continue"><a href="{{ path('_noticia', { 'id': noticia.id }) }}">Continue lendo...</a></p>
+                <h3><a href="{{ path('_noticia_show', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a></h3><!--  -->
+                <hr>
+                <p>{{ noticia.noticia(50) }}</p>
+                <p class="continue"><a href="{{ path('_noticia_show', { 'id': noticia.id }) }}">Continue lendo...</a></p>
             </div>
-
             <footer class="meta">
-                <p>Comentarios: -</p>
-                <p>Criado em {{ noticia.dtCadastro|date('h:iA') }}</p>
+                <p><span class="glyphicon glyphicon-time"></span>{{ noticia.dtCadastro|date('h:iA') }}</p>
                 <p>Categoria: <span class="highlight">{{ noticia.categoria }}</span></p>
             </footer>
         </article>

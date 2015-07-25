@@ -20,7 +20,9 @@ class CategoriaType extends AbstractType
                 'label_attr' => array('class' => 'control-label col-lg-2')
             ))
             ->add('versao', 'choice', array(
-                'choice_list' => new ChoiceList(array(0, 1, 2), array('Ambos', 'Web', 'Mobile'))
+                'attr' => array('class' => 'form-control'),
+                'choice_list' => new ChoiceList(array(0, 1, 2), array('Ambos', 'Web', 'Mobile')),
+                'label_attr' => array('class' => 'control-label col-lg-2')
                 ))
             ->add('salvar', 'submit', array('attr' => array('class' => 'btn btn-primary pull-right')));
     }

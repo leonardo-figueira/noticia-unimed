@@ -47,11 +47,7 @@ class PageController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
 
-        $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaPorData();
-
-        return $this->render('NoticiaBundle:Page:areaRestrita.html.twig', array(
-            'noticias' => $noticias
-        ));
+        return $this->render('NoticiaBundle:Page:areaRestrita.html.twig');
 
     }
 
