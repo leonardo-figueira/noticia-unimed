@@ -16,14 +16,14 @@ class PageController extends Controller
      */
     public function indexAction()
     {
-        $detectMobile = new DetectMobileDevice($_SERVER['HTTP_USER_AGENT']);
+        /**$detectMobile = new DetectMobileDevice($_SERVER['HTTP_USER_AGENT']);
         $mobile = $detectMobile->isMobile();
         if ($mobile == 1){
             echo "MOBILE";
         }else{
             echo "DESKTOP";
         }
-        exit;
+        exit;**/
 
         $em = $this->getDoctrine()->getEntityManager();
 

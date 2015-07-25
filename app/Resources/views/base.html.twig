@@ -10,49 +10,71 @@
         <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
         <link href="{{ asset('css/screen.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('js/bootstrap.min.js') }}" type="text/css" rel="stylesheet" />
     {% endblock %}
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-
-<section id="wrapper">
-    <header id="header">
-        <div class="top">
-            {% block navigation %}
-                <nav>
-                    <ul class="navigation">
-                        <li><a href="{{ path('_inicio') }}">Home</a></li>
-                        <li><a href="{{ path('_sobre') }}">Sobre</a></li>
-                        <li><a href="{{ path('_area_restrita') }}">Area Restrita</a></li>
-                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {% block navigation %}
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('_inicio') }}">Home</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ path('_sobre') }}">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('_area_restrita') }}">Area Restrita</a>
+                    </li>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li><a href="{{ path('logout') }}">Logout</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            {% endblock %}
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-
-        <div align="center">
+    </nav>
+    {% endblock %}
+    <div class="container">
+        <h1 class="page-header" style="text-align:center;">
             {% image '@NoticiaBundle/Resources/public/images/unimed_icon.jpg'
             output='/images/unimed_icon.jpg' %}
             <img src="{{ asset_url }}"/>
             {% endimage %}
+            </br>
+        </h1>
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                {% block body %}{% endblock %}
+            </div>
+            <aside class="sidebar">
+                {% block sidebar %}{% endblock %}
+            </aside>
         </div>
+        <!-- /.row -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row" style="text-align: center;">
 
-    </header>
+                    {% block footer %}
+                        Not&iacute;cias Unimed - created by <a href="https://github.com/leonardo-figueira?tab=repositories">Leonardo Vicente Figueira</a>
+                    {% endblock %}
 
-    <section class="main-col">
-        {% block body %}{% endblock %}
-    </section>
-
-
-    <div id="footer">
-        {% block footer %}
-            Not&iacute;cias Unimed - created by <a href="https://github.com/leonardo-figueira?tab=repositories">Leonardo Vicente Figueira</a>
-        {% endblock %}
+            </div>
+            <!-- /.row -->
+        </footer>
     </div>
-</section>
-
 {% block javascripts %}{% endblock %}
 </body>
 </html>

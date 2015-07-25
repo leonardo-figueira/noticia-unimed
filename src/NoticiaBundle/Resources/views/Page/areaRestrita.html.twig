@@ -4,7 +4,7 @@
 
         <link href="{{ asset('bundles/noticia/css/noticia.css') }}" type="text/css" rel="stylesheet" />
         <div align="center">
-                <a class="btn" style=";color:#fff;" href="{{ path('_cadastrar_noticia') }}">
+                <a class="btn btn-success" style="color:#fff;" href="{{ path('_cadastrar_noticia') }}">
                     Cadastrar Nova Not&iacute;cia
                 </a>
         </div>
@@ -18,12 +18,12 @@
             </header>
             <div class="snippet">
                 <p class="continue">
-                    <a class="btn" style=";color:#fff;" href="{{ path("_excluir_noticia", { 'noticia' : noticia.id }) }}">
-                        Excluir
+                    <a class="btn btn-default" href="{{ path("_alterar_noticia", { 'noticia' : noticia.id }) }}">
+                        Alterar
                     </a>
                     &nbsp;&nbsp;
-                    <a class="btn" style=";color:#fff;" href="{{ path("_alterar_noticia", { 'noticia' : noticia.id }) }}">
-                        Alterar
+                    <a class="btn btn-danger"; style="color:#fff;" href="{{ path("_excluir_noticia", { 'noticia' : noticia.id }) }}">
+                        Excluir
                     </a>
                 </p>
             </div>
