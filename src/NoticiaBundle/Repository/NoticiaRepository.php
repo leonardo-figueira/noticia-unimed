@@ -20,10 +20,22 @@ class NoticiaRepository extends EntityRepository
             ->select('b')
             ->addOrderBy('b.dtCadastro', 'DESC');
 
-        if (false === is_null($limit))
-            $qb->setMaxResults($limit);
-
         return $qb->getQuery()->getResult();
+    }
+
+
+    public function buscaNoticiaWeb()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT n FROM \NoticiaBundle\Entity\Noticia n JOIN n.categoria c WHERE c.versao = 1 OR c.versao = 0")
+            ->getResult();
+    }
+
+    public function buscaNoticiaMobile()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT n FROM \NoticiaBundle\Entity\Noticia n JOIN n.categoria c WHERE c.versao = 2 OR c.versao = 0")
+            ->getResult();
     }
 
     public function adicionar(Noticia $noticia) {

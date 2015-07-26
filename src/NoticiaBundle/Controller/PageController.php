@@ -16,18 +16,17 @@ class PageController extends Controller
      */
     public function indexAction()
     {
-        /**$detectMobile = new DetectMobileDevice($_SERVER['HTTP_USER_AGENT']);
+        $detectMobile = new DetectMobileDevice($_SERVER['HTTP_USER_AGENT']);
+
         $mobile = $detectMobile->isMobile();
-        if ($mobile == 1){
-            echo "MOBILE";
-        }else{
-            echo "DESKTOP";
-        }
-        exit;**/
 
         $em = $this->getDoctrine()->getEntityManager();
 
-        $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaPorData();
+        if ($mobile == 1){
+            $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaMobile();
+        }else{
+            $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaWeb();
+        }
 
         return $this->render('NoticiaBundle:Page:index.html.twig', array(
             'noticias' => $noticias
