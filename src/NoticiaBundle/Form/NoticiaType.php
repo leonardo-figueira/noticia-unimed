@@ -5,6 +5,7 @@ namespace NoticiaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use NoticiaBundle\Form\ImagemType;
 
 class NoticiaType extends AbstractType
 {
@@ -18,8 +19,8 @@ class NoticiaType extends AbstractType
             ->add('titulo',null, array('attr' => array('class' => 'form-control'),
                 'label_attr' => array('class' => 'control-label col-lg-2')
             ))
-            ->add('imagem','file', array('data_class' => null,
-                'label_attr' => array('class' => 'control-label col-lg-2')
+            ->add('imagem',  new ImagemType(),
+                array('label_attr' => array('class' => 'control-label col-lg-2')
             ))
             ->add('noticia','textarea', array('attr' => array('class' => 'form-control', 'rows' => 15),
                 'label_attr' => array('class' => 'control-label col-lg-2')

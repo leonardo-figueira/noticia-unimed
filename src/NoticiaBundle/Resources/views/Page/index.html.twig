@@ -3,7 +3,7 @@
 {% block body %}
     {% for noticia in noticias %}
         <article class="noticia">
-            <img src="{{ asset(['images/', noticia.imagem]|join) }}" />
+            <img src="{{ asset(['images/', noticia.titulo]|join) }}" />
             <div class="snippet">
                 <h3><a href="{{ path('_noticia_show', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a></h3><!--  -->
                 <hr>
