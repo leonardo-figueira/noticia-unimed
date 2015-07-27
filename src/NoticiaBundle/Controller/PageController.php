@@ -55,6 +55,12 @@ class PageController extends Controller
      */
     public function areaRestritaAction(){
 
+        $detectMobile = new DetectMobileDevice($_SERVER['HTTP_USER_AGENT']);
+        $mobile = $detectMobile->isMobile();
+        if ($mobile == 1){
+            throw exception("Area restrita disponivel apenas na versao web");
+        }
+
         $securityContext = $this->get('security.context');
         if(!$securityContext->isGranted('ROLE_USER')){
             throw new AccessDeniedException("Realize o login para poder acessar");

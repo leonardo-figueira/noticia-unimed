@@ -13,7 +13,11 @@ security:
             #   realm: "Secured Demo Area"
 
     access_control:
-        #- {path: ^/area_restrita, roles: ROLE_USER}
+        - {path: ^/noticia/show, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/area_restrita, roles: ROLE_USER}
+        - {path: ^/noticia, roles: ROLE_USER}
+        - {path: ^/categoria, roles: ROLE_USER}
+        - {path: ^/historico, roles: ROLE_ADMIN}
 
     providers:
         bd_noticiaunimed:
