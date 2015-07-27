@@ -5,6 +5,8 @@
 {%  block body %}
     <h3>Not&iacute;cias \ Alterar</h3>
 
+    <a class="btn btn-primary pull-left" href="{{ path('_noticia_index') }}">Voltar</a>
+    </br></br>
     {% include 'NoticiaBundle:Noticia:form.html.twig' with { 'form': form } %}
 {% endblock %}
 

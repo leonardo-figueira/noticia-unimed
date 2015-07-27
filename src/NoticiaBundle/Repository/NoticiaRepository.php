@@ -14,28 +14,42 @@ use \NoticiaBundle\Entity\Noticia;
 class NoticiaRepository extends EntityRepository
 {
 
-    public function buscaNoticiaPorData($limit = null)
+    public function buscaNoticiaPorData()
     {
-        $qb = $this->createQueryBuilder('b')
-            ->select('b')
-            ->addOrderBy('b.dtCadastro', 'DESC');
+        $qb = $this->createQueryBuilder('n')
+            ->select('n')
+            ->addOrderBy('n.dtCadastro', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
 
-
-    public function buscaNoticiaWeb()
+    public function buscaNoticiaWeb($limit = null)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT n FROM \NoticiaBundle\Entity\Noticia n JOIN n.categoria c WHERE c.versao = 1 OR c.versao = 0")
+            ->createQuery("SELECT n FROM \NoticiaBundle\Entity\Noticia n JOIN n.categoria c
+                            WHERE c.versao = 1 OR c.versao = 0 ORDER BY n.dtCadastro DESC")
+            ->setMaxResults($limit)
             ->getResult();
     }
 
-    public function buscaNoticiaMobile()
+    public function buscaNoticiaMobile($limit = null)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT n FROM \NoticiaBundle\Entity\Noticia n JOIN n.categoria c WHERE c.versao = 2 OR c.versao = 0")
+            ->createQuery("SELECT n FROM \NoticiaBundle\Entity\Noticia n JOIN n.categoria c
+                            WHERE c.versao = 2 OR c.versao = 0 ORDER BY n.dtCadastro DESC")
+            ->setMaxResults($limit)
             ->getResult();
+    }
+
+    public function buscarPorFiltro($categoriaId)
+    {
+        $qb = $this->createQueryBuilder('n')
+            ->select('n')
+            ->where('n.categoria = :categoriaId')
+            ->setParameter('categoriaId', $categoriaId)
+            ->orderBy('n.dtCadastro','desc');
+
+        return $qb->getQuery()->getResult();
     }
 
     public function adicionar(Noticia $noticia) {

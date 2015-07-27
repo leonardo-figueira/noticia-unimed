@@ -5,6 +5,8 @@
 {%  block body %}
     <h3>Categoria \ Cadastrar</h3>
 
+    <a class="btn btn-primary pull-left" href="{{ path('_categoria_index') }}">Voltar</a>
+    </br></br>
     {% include 'NoticiaBundle:Categoria:form.html.twig' with { 'form': form } %}
 {% endblock %}
 

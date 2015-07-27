@@ -33,4 +33,13 @@ class ComentarioRepository extends EntityRepository
 
     }
 
+    public function excluirTodosComentariosPorNoticia($noticiaId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("DELETE NoticiaBundle\Entity\Comentario c WHERE c.noticia = :noticiaId")
+            ->setParameter('noticiaId', $noticiaId)
+            ->getResult();
+    }
+
+
 }

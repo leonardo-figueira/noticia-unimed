@@ -6,6 +6,6 @@
     <h3>Not&iacute;cias \ Excluir \ {{ noticia.titulo }}</h3>
     <p> Tem certeza que deseja excluir a noticia <strong>{{ noticia.titulo }}</strong>?</p>
     <form method="post" action="">
-        <a href="{{ path('_area_restrita') }}">Voltar</a> <input type="submit" class="btn btn-primary" value="Sim">
+        <a href="{{ path('_noticia_index') }}">Voltar</a> <input type="submit" class="btn btn-primary" value="Sim">
     </form>
 {% endblock %}

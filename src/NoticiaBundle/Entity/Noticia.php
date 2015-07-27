@@ -32,9 +32,9 @@ class Noticia
     private $titulo;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="noticia", type="string", length=255)
+     * @ORM\Column(name="noticia", type="text")
      */
     private $noticia;
 
@@ -130,9 +130,12 @@ class Noticia
      *
      * @return string 
      */
-    public function getNoticia()
+    public function getNoticia($length = null)
     {
-        return $this->noticia;
+        if (false === is_null($length) && $length > 0)
+            return substr($this->noticia, 0, $length);
+        else
+            return $this->noticia;
     }
 
     /**

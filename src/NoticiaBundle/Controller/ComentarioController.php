@@ -48,7 +48,7 @@ class ComentarioController extends Controller
 
                 $this->addFlash('success', 'Comentario adicionado com sucesso');
 
-                return $this->redirect($this->generateUrl('_noticia', array(
+                return $this->redirect($this->generateUrl('_noticia_show', array(
                         'id' => $comentario->getNoticia()->getId())) .
                     '#comentario-' . $comentario->getId()
                 );

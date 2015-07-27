@@ -1,6 +1,11 @@
 {% extends 'NoticiaBundle:Page:layout.html.twig' %}
 
 {% block body %}
+    <h1 xmlns="http://www.w3.org/1999/html">
+        <small>&Aacute;rea Restrita</small>
+    </h1>
+    <small>Somente o Administrador pode visualizar o hist&oacute;rico</small>
+
 {% endblock %}
 {% block sidebar %}
     <div class="well" style="margin-right: -140px;">
@@ -11,6 +16,8 @@
                     <li><a href="{{ path('_noticia_index') }}">Not&iacute;cias</a>
                     </li>
                     <li><a href="{{ path('_categoria_index') }}">Categoria</a>
+                    </li>
+                    <li><a href="{{ path('_historico_index') }}">Hist&oacute;rico</a>
                     </li>
                 </ul>
             </div>

@@ -43,6 +43,13 @@ class Historico
     private $acao;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario", type="string", length=255)
+     */
+    private $usuario;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="data", type="datetime")
@@ -151,4 +158,22 @@ class Historico
     {
         return $this->data;
     }
+
+    /**
+     * @return string
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * @param string $usuario
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
+
 }

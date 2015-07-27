@@ -1,0 +1,49 @@
+{% extends 'NoticiaBundle:Page:layout.html.twig' %}
+
+{% block body %}
+    <h3>
+        Hist&oacute;rico de Altera&ccedil;&otilde;es
+    </h3>
+    <div class="panel-body">
+        <!-- START table-responsive-->
+        <div class="table-responsive table-bordered">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th width="10%">#</th>
+                    <th width="80%">T&iacute;tulo</th>
+                    <th width="10%">A&ccedil;&otilde;es</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for historico in historicos %}
+                    <tr>
+                        <td>{{ historico.noticiaId }}</td>
+                        <td>{{ historico.noticiaNome }}</td>
+                        <td>
+                            <a href="{{ path("_historico_show", { 'noticiaId' : historico.noticiaId }) }}" class="btn btn-sm btn-warning">Hist&oacute;rico</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block sidebar %}
+    <div class="well" style="margin-right: -140px;">
+        <h4>Menu</h4>
+        <div class="row">
+            <div class="col-lg-6">
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('_noticia_index') }}">Not&iacute;cias</a>
+                    </li>
+                    <li><a href="{{ path('_categoria_index') }}">Categoria</a>
+                    </li>
+                    <li><a href="{{ path('_historico_index') }}">Hist&oacute;rico</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

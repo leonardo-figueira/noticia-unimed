@@ -5,10 +5,10 @@
 
     <article class="noticia">
         <header>
-            <div class="data"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('l, F j, Y') }}</time></div>
+            <div class="data"><time datetime="{{ noticia.dtCadastro|date('c') }}">{{ noticia.dtCadastro|date('d/m/Y - h:iA') }}</time></div>
             <h2>{{ noticia.titulo }}</h2>
         </header>
-        <img src="{{ asset(['images/', noticia.imagem]|join) }}" alt="{{ noticia.titulo }} imagem nao encontrada" class="large" />
+        <img src="{{ asset(['imagens_noticias/', noticia.imagem.path]|join) }}" alt="{{ noticia.titulo }} imagem nao encontrada" class="large" />
         <div>
             <p>{{ noticia.noticia }}</p>
         </div>
@@ -21,7 +21,7 @@
         <h3>Adicionar Coment&aacute;rio</h3>
 
         {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="success">
+            <div class="alert alert-success">
                 {{ flashMessage }}
             </div>
         {% endfor %}

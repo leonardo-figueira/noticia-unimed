@@ -3,38 +3,38 @@
 {% block body %}
     {% for noticia in noticias %}
         <article class="noticia">
-            <img src="{{ asset(['images/', noticia.titulo]|join) }}" />
+            <img src="{{ asset(['imagens_noticias/', noticia.imagem.path]|join) }}" />
             <div class="snippet">
-                <h3><a href="{{ path('_noticia_show', { 'id': noticia.id }) }}">{{ noticia.titulo }}</a></h3><!--  -->
+                <h3>
+                    <a href="{{ path('_noticia_show', { 'id': noticia.id }) }}">
+                        {{ noticia.titulo }}
+                    </a>
+                </h3>
+                <h5>
+                    <time datetime="{{ noticia.dtCadastro|date('c') }}">
+                        {{ noticia.dtCadastro|date('d/m/Y') }}
+                    </time>
+                </h5>
                 <hr>
-                <p>{{ noticia.noticia(50) }}</p>
+                <p>{{ noticia.noticia(250) }}</p>
                 <p class="continue"><a href="{{ path('_noticia_show', { 'id': noticia.id }) }}">Continue lendo...</a></p>
             </div>
             <footer class="meta">
-                <p><span class="glyphicon glyphicon-time"></span>{{ noticia.dtCadastro|date('h:iA') }}</p>
-                <p>Categoria: <span class="highlight">{{ noticia.categoria }}</span></p>
+                <p>
+                    <span class="glyphicon glyphicon-time"></span>
+                    {{ noticia.dtCadastro|date('h:iA') }}
+                </p>
+                <p>
+                    Categoria:
+                    <span class="highlight">
+                        <a href="{{ path('_filtro_inicio', { 'categoriaId': noticia.categoria.id }) }}">
+                            {{ noticia.categoria }}
+                        </a>
+                    </span>
+                </p>
             </footer>
         </article>
     {% else %}
         <p>Sem not&iacute;cias</p>
     {% endfor %}
-{% endblock %}
-{% block sidebar %}
-    <div class="well" style="margin-right: -140px;">
-        <h4>Categorias</h4>
-        <div class="row">
-            <div class="col-lg-6">
-                <ul class="list-unstyled">
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                    <li><a href="#">Category Name</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 {% endblock %}

@@ -14,7 +14,6 @@ use NoticiaBundle\Form\CategoriaType;
 class CategoriaController extends Controller
 {
 
-
     /**
      * @Route("/", name="_categoria_index")
      * @Template()
@@ -70,7 +69,7 @@ class CategoriaController extends Controller
                 $categoriaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Categoria');
                 $categoriaRepository->excluir($categoria);
 
-                $this->addFlash('success', 'Categoria ' . $categoria->getNome() . ' excluída com sucesso');
+                $this->addFlash('success', 'Categoria excluida com sucesso');
 
                 return $this->redirectToRoute('_categoria_index');
             } catch (Exception $ex) {

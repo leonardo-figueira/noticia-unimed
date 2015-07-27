@@ -2,11 +2,14 @@
 
 namespace NoticiaBundle\Controller;
 
+use NoticiaBundle\Entity\Historico;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use NoticiaBundle\Entity\Noticia;
 use NoticiaBundle\Form\NoticiaType;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * @Route("/noticia")
  */
@@ -57,6 +60,7 @@ class NoticiaController extends Controller
      */
     public function cadastrarAction() {
         $noticia = new Noticia();
+        $historico = new Historico();
         $request = $this->getRequest();
         $form = $this->createForm(new NoticiaType(), $noticia);
         $form->handleRequest($request);
@@ -68,9 +72,19 @@ class NoticiaController extends Controller
                 $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
                 $noticiaRepository->adicionar($noticia);
 
+                $usr= $this->get('security.token_storage')->getToken()->getUser();
+
+                $historicoRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Historico');
+                $historico->setNoticiaId($noticia->getId());
+                $historico->setNoticiaNome($noticia->getTitulo());
+                $historico->setAcao('Cadastro');
+                $historico->setData(new \DateTime('now'));
+                $historico->setUsuario($usr->getUsername());
+                $historicoRepository->adicionar($historico);
+
                 $this->addFlash('success', 'Noticia cadastrada com sucesso');
 
-                return $this->redirectToRoute('_area_restrita');
+                return $this->redirectToRoute('_noticia_index');
             } catch (Exception $ex) {
                 echo $ex->getMessage();
             }
@@ -86,16 +100,31 @@ class NoticiaController extends Controller
     public function excluirAction(Noticia $noticia) {
 
         $request = $this->getRequest();
+        $historico = new Historico();
 
         if ($request->isMethod('POST')) {
             try {
 
                 $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
+
+                $comentarioRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Comentario');
+                $comentarioRepository->excluirTodosComentariosPorNoticia($noticia);
+
+                $usr= $this->get('security.token_storage')->getToken()->getUser();
+
+                $historicoRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Historico');
+                $historico->setNoticiaId($noticia->getId());
+                $historico->setNoticiaNome($noticia->getTitulo());
+                $historico->setAcao('Exclusao');
+                $historico->setData(new \DateTime('now'));
+                $historico->setUsuario($usr->getUsername());
+                $historicoRepository->adicionar($historico);
+
                 $noticiaRepository->excluir($noticia);
 
-                $this->addFlash('success', 'Raia ' . $noticia->getTitulo() . ' excluída com sucesso');
+                $this->addFlash('success', 'Noticia excluida com sucesso');
 
-                return $this->redirectToRoute('_area_restrita');
+                return $this->redirectToRoute('_noticia_index');
             } catch (Exception $ex) {
                 echo $ex->getMessage();
             }
@@ -111,6 +140,7 @@ class NoticiaController extends Controller
     public function alterarAction(Noticia $noticia) {
 
         $form = $this->createForm(new NoticiaType(), $noticia);
+        $historico = new Historico();
         $request = $this->getRequest();
         $form->handleRequest($request);
 
@@ -121,9 +151,19 @@ class NoticiaController extends Controller
                 $noticiaRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Noticia');
                 $noticiaRepository->alterar($noticia);
 
-                $this->addFlash('success', 'Noticia ' . $noticia->getId() . ' alterada com sucesso');
+                $usr= $this->get('security.token_storage')->getToken()->getUser();
 
-                return $this->redirectToRoute('_area_restrita');
+                $historicoRepository = $this->getDoctrine()->getRepository('NoticiaBundle:Historico');
+                $historico->setNoticiaId($noticia->getId());
+                $historico->setNoticiaNome($noticia->getTitulo());
+                $historico->setAcao('Edicao');
+                $historico->setData(new \DateTime('now'));
+                $historico->setUsuario($usr->getUsername());
+                $historicoRepository->adicionar($historico);
+
+                $this->addFlash('success', 'Noticia alterada com sucesso');
+
+                return $this->redirectToRoute('_noticia_index');
             } catch (Exception $ex) {
                 echo $ex->getMessage();
             }

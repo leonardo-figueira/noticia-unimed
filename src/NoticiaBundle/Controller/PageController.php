@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends Controller
 {
@@ -27,6 +28,21 @@ class PageController extends Controller
         }else{
             $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscaNoticiaWeb();
         }
+
+        return $this->render('NoticiaBundle:Page:index.html.twig', array(
+            'noticias' => $noticias
+        ));
+    }
+
+    /**
+     * @Route("/filtro_categoria/{categoriaId}" , name="_filtro_inicio")
+     * @Template()
+     */
+    public function filtroAction($categoriaId)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $noticias = $em->getRepository('NoticiaBundle:Noticia')->buscarPorFiltro($categoriaId);
 
         return $this->render('NoticiaBundle:Page:index.html.twig', array(
             'noticias' => $noticias

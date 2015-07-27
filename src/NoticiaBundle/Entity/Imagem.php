@@ -31,6 +31,21 @@ class Imagem
     public $path;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updateAt;
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+        $this->updateAt = new \DateTime();
+    }
+
+    /**
      * @ORM\OneToMany(targetEntity="Noticia", mappedBy="imagem")
      */
     private $noticias = array();
@@ -45,7 +60,7 @@ class Imagem
 
     public function getUploadRootDir()
     {
-        return __dir__.'/../../../web/uploads';
+        return __dir__.'/../../../web/imagens_noticias';
     }
 
     public function getAbsolutePath()
@@ -61,6 +76,7 @@ class Imagem
     {
         $this->tempFile = $this->getAbsolutePath();
         $this->oldFile = $this->getPath();
+        $this->updateAt  = new \DateTime();
 
         if(null !== $this->file) $this->path = sha1(uniqid(mt_rand(),true)).'.'.$this->file->guessExtension();
 

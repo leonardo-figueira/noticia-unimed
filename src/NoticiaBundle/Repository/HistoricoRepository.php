@@ -21,4 +21,25 @@ class HistoricoRepository extends EntityRepository
         return true;
     }
 
+    public function buscaTodos($limit = null)
+    {
+        $qb = $this->createQueryBuilder('h')
+                    ->select('h.noticiaId, h.noticiaNome')->distinct()
+                    ->addOrderBy('h.data', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function buscarHistorcoEspecifico($noticiaId)
+    {
+        $qb = $this->createQueryBuilder('h')
+                    ->select('h')
+                    ->where('h.noticiaId = :noticiaId')
+                    ->setParameter('noticiaId', $noticiaId)
+                    ->orderBy('h.data','desc');
+
+        return $qb->getQuery()->getResult();
+
+    }
+
 }
